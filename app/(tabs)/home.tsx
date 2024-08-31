@@ -1,6 +1,7 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import Header from "@/components/Home/Header";
+import Slider from "@/components/Home/Slider";
 
 export default function HomeScreen() {
   return (
@@ -8,6 +9,7 @@ export default function HomeScreen() {
       {/* Header */}
       <Header />
       {/* Slider */}
+      <Slider />
       {/* Category */}
       {/* List Of Pets */}
       {/* Add New Pet Option */}
