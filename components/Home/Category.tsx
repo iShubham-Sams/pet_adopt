@@ -4,9 +4,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/config/FirebaseConfig";
 import Colors from "@/constants/Colors";
 
-export default function Category() {
+export default function Category({ getPetList, selectedCategory, setSelectedCategory }: { getPetList: (categoryName: string) => void; selectedCategory: any; setSelectedCategory: any }) {
   const [categoryList, setCategoryList] = useState<any[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<any>("Dogs");
 
   useEffect(() => {
     getCategory();
@@ -30,6 +29,7 @@ export default function Category() {
           <TouchableOpacity
             onPress={() => {
               setSelectedCategory(item?.name);
+              getPetList(item?.name);
             }}
             style={{ flex: 1 }}>
             <View style={[style.container, selectedCategory == item?.name && style.selectedCategoryContainer]}>
