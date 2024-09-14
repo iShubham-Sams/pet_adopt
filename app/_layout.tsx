@@ -2,6 +2,7 @@ import * as SecureStore from "expo-secure-store";
 import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
+import { ToastProvider } from "react-native-toast-notifications";
 
 const tokenCache = {
   async getToken(key: string) {
@@ -41,13 +42,15 @@ export default function RootLayout() {
   }
   return (
     <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
-      <ClerkLoaded>
-        <Stack>
-          <Stack.Screen name="index" />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="login/index" options={{ headerShown: false }} />
-        </Stack>
-      </ClerkLoaded>
+      <ToastProvider>
+        <ClerkLoaded>
+          <Stack>
+            <Stack.Screen name="index" />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="login/index" options={{ headerShown: false }} />
+          </Stack>
+        </ClerkLoaded>
+      </ToastProvider>
     </ClerkProvider>
   );
 }

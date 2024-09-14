@@ -1,5 +1,6 @@
 import { db } from "@/config/FirebaseConfig";
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
+import { Dispatch, SetStateAction } from "react";
 
 const getFavList = async (user: any) => {
   const docSnap = await getDoc(doc(db, "UserFavPet", user?.primaryEmailAddress?.emailAddress));
@@ -19,10 +20,18 @@ const UpdateFav = async (user: any, favorites: any) => {
     await updateDoc(docRef, {
       favorites: favorites,
     });
-  } catch (error) {}
+  } catch (error) { }
 };
 
+const getCategory = async (setCategoryList: Dispatch<SetStateAction<Array<any>>>) => {
+  setCategoryList([]);
+  const snapShot = await getDocs(collection(db, "Category"));
+  snapShot.forEach((doc) => {
+    setCategoryList((cat) => [...cat, doc.data()]);
+  });
+};
 export default {
   getFavList,
   UpdateFav,
+  getCategory
 };

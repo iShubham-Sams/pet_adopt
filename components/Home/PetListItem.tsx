@@ -9,7 +9,7 @@ export default function PetListItem({ pet }: { pet: any }) {
   return (
     <TouchableOpacity
       onPress={() => {
-        router.push({ pathname: "/pet-detail", params: pet });
+        router.push({ pathname: "/pet-detail", params: { ...pet, imageUrl: encodeURIComponent(pet.imageUrl) } });
       }}
       style={{ padding: 10, marginRight: 15, backgroundColor: Colors.WHITE, borderRadius: 10 }}>
       <View style={{ position: "absolute", zIndex: 10, right: 10, top: 10 }}>

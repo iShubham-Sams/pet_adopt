@@ -3,21 +3,14 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/config/FirebaseConfig";
 import Colors from "@/constants/Colors";
+import Shared from "@/Shared/Shared";
 
 export default function Category({ getPetList, selectedCategory, setSelectedCategory }: { getPetList: (categoryName: string) => void; selectedCategory: any; setSelectedCategory: any }) {
   const [categoryList, setCategoryList] = useState<any[]>([]);
 
   useEffect(() => {
-    getCategory();
+    Shared.getCategory(setCategoryList);
   }, []);
-
-  const getCategory = async () => {
-    setCategoryList([]);
-    const snapShot = await getDocs(collection(db, "Category"));
-    snapShot.forEach((doc) => {
-      setCategoryList((cat) => [...cat, doc.data()]);
-    });
-  };
 
   return (
     <View style={{ marginTop: 20 }}>
