@@ -77,7 +77,6 @@ export default function AddNewPet() {
       uploadBytes(storageRef, blobImage)
         .then((res) =>
           getDownloadURL(storageRef).then(async (downloadUrl) => {
-            console.log(downloadUrl, "downloadUrl");
             saveFormData(downloadUrl);
           })
         )
