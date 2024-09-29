@@ -37,17 +37,30 @@ export default function Favorite() {
   return (
     <View style={{ padding: 20, marginTop: 20 }}>
       <Text style={{ fontFamily: "outfit-medium", fontSize: 30 }}>Favorites</Text>
-      <FlatList
-        data={favPetList}
-        numColumns={2}
-        onRefresh={getFavPetIds}
-        refreshing={loaders}
-        renderItem={({ item, index }) => (
-          <View>
-            <PetListItem pet={item} />
-          </View>
-        )}
-      />
+      {loaders ? (
+        <View style={{ display: "flex", flexDirection: "row", gap: 6, marginTop: 20, flexWrap: "wrap" }}>
+          <View style={{ width: "49%", height: 160, backgroundColor: "#9e9e9e", opacity: 0.4, borderRadius: 20 }}></View>
+          <View style={{ width: "49%", height: 160, backgroundColor: "#9e9e9e", opacity: 0.4, borderRadius: 20 }}></View>
+          <View style={{ width: "49%", height: 160, backgroundColor: "#9e9e9e", opacity: 0.4, borderRadius: 20 }}></View>
+          <View style={{ width: "49%", height: 160, backgroundColor: "#9e9e9e", opacity: 0.4, borderRadius: 20 }}></View>
+        </View>
+      ) : favPetList.length == 0 ? (
+        <View style={{ marginTop: 20, display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <Text>You don't have any favorites pet </Text>
+        </View>
+      ) : (
+        <FlatList
+          data={favPetList}
+          numColumns={2}
+          onRefresh={getFavPetIds}
+          refreshing={loaders}
+          renderItem={({ item, index }) => (
+            <View>
+              <PetListItem pet={item} />
+            </View>
+          )}
+        />
+      )}
     </View>
   );
 }

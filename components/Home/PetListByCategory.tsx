@@ -19,23 +19,35 @@ export default function PetListByCategory() {
     const q = query(collection(db, "Pets"), where("category", "==", category));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      setPetList((p) => [...p, doc.data()]);
+      setPetList((p: any) => [...p, doc.data()]);
     });
     setLoader(false);
   };
   return (
     <View>
-      <Category getPetList={getPetList} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
-      <FlatList
-        refreshing={loader}
-        onRefresh={() => {
-          getPetList(selectedCategory);
-        }}
-        style={{ marginTop: 10 }}
-        data={petList}
-        horizontal={true}
-        renderItem={({ item, index }) => <PetListItem pet={item} />}
-      />
+      {petList.length == 0 || loader ? (
+        <View style={{ margin: 2, gap: 6 }}>
+          <View style={{ width: "100%", height: 100, backgroundColor: "#9e9e9e", opacity: 0.4, borderRadius: 20 }}></View>
+          <View style={{ display: "flex", flexDirection: "row", gap: 4 }}>
+            <View style={{ width: "49%", height: 160, backgroundColor: "#9e9e9e", opacity: 0.4, borderRadius: 20 }}></View>
+            <View style={{ width: "49%", height: 160, backgroundColor: "#9e9e9e", opacity: 0.4, borderRadius: 20 }}></View>
+          </View>
+        </View>
+      ) : (
+        <View>
+          <Category getPetList={getPetList} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+          <FlatList
+            refreshing={loader}
+            onRefresh={() => {
+              getPetList(selectedCategory);
+            }}
+            style={{ marginTop: 10 }}
+            data={petList}
+            horizontal={true}
+            renderItem={({ item, index }) => <PetListItem pet={item} />}
+          />
+        </View>
+      )}
     </View>
   );
 }

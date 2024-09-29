@@ -6,7 +6,6 @@ import { FlatList } from "react-native";
 
 export default function Slider() {
   const [sliderList, setSliderList] = useState<any[]>([]);
-
   useEffect(() => {
     getSlider();
   }, []);
@@ -14,13 +13,15 @@ export default function Slider() {
   const getSlider = async () => {
     const snapshot = await getDocs(collection(db, "Sliders"));
     snapshot.forEach((doc) => {
-      setSliderList((list) => [...list, doc.data()]);
+      setSliderList((list: any) => [...list, doc.data()]);
     });
   };
 
   return (
     <View style={{ marginTop: 15 }}>
-      {sliderList.length > 0 && (
+      {sliderList.length == 0 ? (
+        <View style={{ width: "100%", height: 180, backgroundColor: "#9e9e9e", opacity: 0.4, borderRadius: 20 }}></View>
+      ) : (
         <FlatList
           data={sliderList}
           horizontal={true}

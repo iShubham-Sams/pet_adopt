@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/config/FirebaseConfig";
 import { useUser } from "@clerk/clerk-expo";
-import UserItem from "@/components/Inbox/userItem";
+import UserItem from "@/components/Inbox/UserItem";
 
 export default function Inbox() {
   const { user } = useUser();
@@ -40,15 +40,24 @@ export default function Inbox() {
   return (
     <View style={{ padding: 20, margin: 20 }}>
       <Text style={{ fontFamily: "outfit-medium", fontSize: 30 }}>Inbox</Text>
-      <FlatList
-        refreshing={loader}
-        onRefresh={() => getUserList()}
-        style={{ marginTop: 20 }}
-        data={MapOtherUserList()}
-        renderItem={({ item, index }) => {
-          return <UserItem userInfo={item} key={index} />;
-        }}
-      />
+      {loader ? (
+        <View style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 20, flexWrap: "wrap" }}>
+          <View style={{ width: "100%", height: 60, backgroundColor: "#9e9e9e", opacity: 0.4, borderRadius: 20 }}></View>
+          <View style={{ width: "100%", height: 60, backgroundColor: "#9e9e9e", opacity: 0.4, borderRadius: 20 }}></View>
+          <View style={{ width: "100%", height: 60, backgroundColor: "#9e9e9e", opacity: 0.4, borderRadius: 20 }}></View>
+          <View style={{ width: "100%", height: 60, backgroundColor: "#9e9e9e", opacity: 0.4, borderRadius: 20 }}></View>
+        </View>
+      ) : (
+        <FlatList
+          refreshing={loader}
+          onRefresh={() => getUserList()}
+          style={{ marginTop: 20 }}
+          data={MapOtherUserList()}
+          renderItem={({ item, index }) => {
+            return <UserItem userInfo={item} key={index} />;
+          }}
+        />
+      )}
     </View>
   );
 }

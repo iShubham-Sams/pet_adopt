@@ -1,7 +1,7 @@
 export default {
-  PRIMARY: '#E8B20E',
+  PRIMARY: '#BF00FF',
+  SECONDARY: '#4faaff',
   GRAY: '#8F8e8d',
   WHITE: '#fff',
-  SECONDARY: '#4faaff',
   LIGHT_PRIMARY: '#fff1c9'
 }

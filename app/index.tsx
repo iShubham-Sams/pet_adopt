@@ -2,6 +2,7 @@ import { useUser } from "@clerk/clerk-expo";
 import { Redirect, useRootNavigationState } from "expo-router";
 import { useEffect } from "react";
 import { Text, View } from "react-native";
+import "../style";
 
 export default function Index() {
   const { user } = useUser();
