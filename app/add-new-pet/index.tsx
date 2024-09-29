@@ -35,9 +35,9 @@ export default function AddNewPet() {
   const handelInputChange = (filedName: string, filedValue: string) => {
     setFormData((pre) => {
       if (pre) {
-        return { ...pre, [filedName]: [filedValue] };
+        return { ...pre, [filedName]: filedValue };
       } else {
-        return { [filedName]: [filedValue] };
+        return { [filedName]: filedValue };
       }
     });
   };

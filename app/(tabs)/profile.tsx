@@ -1,9 +1,10 @@
-import { View, Text, Image, FlatList, TouchableOpacity } from "react-native";
-import React from "react";
+import { View, Text, Image, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
+import React, { useState } from "react";
 import { useAuth, useUser } from "@clerk/clerk-expo";
 import Colors from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
+import { Overlay } from "react-native-elements";
 
 type IconTypes = "add-circle" | "heart" | "chatbubble" | "exit";
 const Menu = [
@@ -16,11 +17,15 @@ const Menu = [
 type MenuType = typeof Menu;
 export default function Profile() {
   const { user } = useUser();
+  const [logOuting, setLogOuting] = useState(false);
   const { signOut } = useAuth();
   const router = useRouter();
-  const onPressMenuItem = (item: MenuType[0]) => {
+  const onPressMenuItem = async (item: MenuType[0]) => {
     if (item.path == "logout") {
-      signOut();
+      setLogOuting(true);
+      await signOut();
+      setLogOuting(false);
+      router.push("/login");
       return;
     } else {
       router.push(item.path as any);
@@ -28,6 +33,9 @@ export default function Profile() {
   };
   return (
     <View style={{ padding: 20, marginTop: 20 }}>
+      <Overlay isVisible={logOuting} style={{ height: 100, width: 40, backgroundColor: Colors.LIGHT_PRIMARY }}>
+        <ActivityIndicator size="large" />
+      </Overlay>
       <Text style={{ fontFamily: "outfit-medium", fontSize: 30 }}>Profile</Text>
       <View style={{ display: "flex", alignItems: "center", marginVertical: 25 }}>
         <Image source={{ uri: user?.imageUrl }} style={{ width: 80, height: 80, borderRadius: 99, gap: 7, marginTop: 6 }} />

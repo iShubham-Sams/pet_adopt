@@ -1,15 +1,13 @@
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
 import Header from "@/components/Home/Header";
 import Slider from "@/components/Home/Slider";
 import PetListByCategory from "@/components/Home/PetListByCategory";
 import { MaterialIcons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import { Link } from "expo-router";
-import { useUser } from "@clerk/clerk-expo";
 
 export default function HomeScreen() {
-  const { user } = useUser();
   return (
     <View style={{ padding: 20, marginTop: 20 }}>
       <View>

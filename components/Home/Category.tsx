@@ -5,13 +5,7 @@ import { db } from "@/config/FirebaseConfig";
 import Colors from "@/constants/Colors";
 import Shared from "@/Shared/Shared";
 
-export default function Category({ getPetList, selectedCategory, setSelectedCategory }: { getPetList: (categoryName: string) => void; selectedCategory: any; setSelectedCategory: any }) {
-  const [categoryList, setCategoryList] = useState<any[]>([]);
-
-  useEffect(() => {
-    Shared.getCategory(setCategoryList);
-  }, []);
-
+export default function Category({ getPetList, selectedCategory, setSelectedCategory, categoryList }: { getPetList: (categoryName: string) => void; selectedCategory: any; setSelectedCategory: any; categoryList: any }) {
   return (
     <View style={{ marginTop: 20 }}>
       <Text style={{ fontFamily: "outfit-medium", fontSize: 20 }}>Category</Text>
